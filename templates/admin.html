@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<h1>Admin Panel</h1>
+
+<ul>
+    <li>Username: {{admin.username}}</li>
+    <li>E-mail: {{admin.email}}</li>
+    <li>First Name: {{admin.first_name}}</li>
+    <li>Last Name: {{admin.last_name}}</li>
+    <li>Admin: {{admin.is_admin}}</li>
+</ul>
+
+<h2>User List</h2>
+
+<ul>
+    {% for user in all_users %}
+    <li>Username: {{user.username}}</li>
+    <li>E-mail: {{user.email}}</li>
+    <li>First Name: {{user.first_name}}</li>
+    <li>Last Name: {{user.last_name}}</li>
+    <li>Admin: {{user.is_admin}}</li>
+    <form action="/admin/{{admin.username}}/{{user.username}}/delete" method="POST">
+        <button>Delete User</button>
+    </form>
+    <br>
+    {% endfor %}
+</ul>
+
+<h2>User Tweets</h2>
+
+<ul>
+    {% for feedback in all_feedback %}
+    <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a></li>
+    <li> {{feedback.content}}</li>
+    <li>Posted by: {{feedback.username}}</li>
+    <form action="/feedback/{{feedback.id}}/delete" method="POST">
+        <button>Delete This</button>
+    </form>
+    <br>
+    {% endfor %}
+</ul>
+
+
+<a href="/users/{{admin.username}}/feedback/add">Add Feedback</a>
+
+<form action="/users/{{admin.username}}/delete" method="POST">
+    <button>Delete {{admin.username}}</button>
+</form>
+
+
+{% endblock %}

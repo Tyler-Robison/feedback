@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<h1>User Info</h1>
+
+<ul>
+    <li>Username: {{user.username}}</li>
+    <li>E-mail: {{user.email}}</li>
+    <li>First Name: {{user.first_name}}</li>
+    <li>Last Name: {{user.last_name}}</li>
+</ul>
+
+<h2>User Tweets</h2>
+
+<ul>
+    {% for feedback in feedbacks %}
+    {% if feedback.username == user.username %}
+    <li><a href="/feedback/{{feedback.id}}/update">{{feedback.title}}</a></li>
+    <li> {{feedback.content}}</li>
+    <form action="/feedback/{{feedback.id}}/delete" method="POST">
+        <button>Delete This</button>
+    </form>
+    <br>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+
+<a href="/users/{{user.username}}/feedback/add">Add Feedback</a>
+
+<form action="/users/{{user.username}}/delete" method="POST">
+    <button>Delete {{user.username}}</button>
+</form>
+
+
+{% endblock %}

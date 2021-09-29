@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    {% block content %}
+
+
+    {% endblock %}
+
+    {% for msg in get_flashed_messages() %}
+    {{ msg }}
+    {% endfor %}
+
+    <br>
+    {% if session['user_id'] %}
+    <p>Logged in as {{ session['user_id'] }}</p>
+    <a href="/logout">Logout</a>
+    <br>
+    <a href="/admin/{{session['user_id']}}">Admin</a>
+    {% else %}
+    <a href="/login">Login</a>
+    <br>
+    <a href="/register">Register</a>
+  
+    {% endif %}
+
+
+
+</body>
+
+</html>
